@@ -21,9 +21,6 @@ composer require borntobeyours/ovo
 
 ### Feature
 
-```bash
-composer test
-```
 
 ## Usage
 
