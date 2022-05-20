@@ -1,10 +1,9 @@
-# Very short description of the package
+# Unofficial OVO API Wrapper for Laravel Framework
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/borntobeyours/ovo.svg?style=flat-square)](https://packagist.org/packages/borntobeyours/ovo)
 [![Total Downloads](https://img.shields.io/packagist/dt/borntobeyours/ovo.svg?style=flat-square)](https://packagist.org/packages/borntobeyours/ovo)
-![GitHub Actions](https://github.com/borntobeyours/ovo/actions/workflows/main.yml/badge.svg)
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
+Modified from https://github.com/namdevel/ovoid-API
 
 ## Installation
 
@@ -14,16 +13,16 @@ You can install the package via composer:
 composer require borntobeyours/ovo
 ```
 
+### Feature
+
+```bash
+composer test
+```
+
 ## Usage
 
 ```php
 // Usage description here
-```
-
-### Testing
-
-```bash
-composer test
 ```
 
 ### Changelog
