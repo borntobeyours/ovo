@@ -23,10 +23,7 @@ composer require borntobeyours/ovo
 
 
 ## Usage
-
-```php
-// Usage description here
-```
+Please see [DOCUMENTATION](DOCS.md) for details.
 
 ### Changelog
 
