@@ -4,14 +4,40 @@ namespace Borntobeyours\Ovo;
 
 class Ovo
 {
-    const BASE_API = config('ovo.BASE_API');
-    const AGW_API = config('ovo.AGW_API');
-    const AWS_API = config('ovo.AWS_API');
+    public static function BASE_API()
+    {
+        return config('ovo.BASE_API');
+    }
+
+    public static function AGW_API()
+    {
+        return config('ovo.AGW_API');
+    }
+
+    public static function AWS_API()
+    {
+        return config('ovo.AWS_API');
+    }
     
-    const os = config('ovo.os');
-    const app_version = config('ovo.app_version');
-    const client_id = config('ovo.client_id');
-    const user_agent = config('ovo.user_agent');
+    public static function os()
+    {
+        return config('ovo.os');
+    }
+
+    public static function app_version()
+    {
+        return config('ovo.app_version');
+    }
+
+    public static function client_id()
+    {
+        return config('ovo.client_id');
+    }
+
+    public static function user_agent()
+    {
+        return config('ovo.user_agent');
+    }
     
     /*
     @ Device ID (UUIDV4)
@@ -64,11 +90,11 @@ class Ovo
         $headers = array(
             'content-type: application/json',
             'accept: */*',
-            'app-version: ' . self::app_version,
-            'client-id: ' . self::client_id,
+            'app-version: ' . self::app_version(),
+            'client-id: ' . self::client_id(),
             'device-id: ' . $this->device_id,
-            'os: ' . self::os,
-            'user-agent: ' . self::user_agent
+            'os: ' . self::os(),
+            'user-agent: ' . self::user_agent()
         );
         
         if ($this->auth_token) {
@@ -95,7 +121,7 @@ class Ovo
             'channel_code' => 'ovo_ios'
         );
         
-        return self::request(self::AGW_API . '/v3/user/accounts/otp', $field, $this->headers());
+        return self::request(self::AGW_API() . '/v3/user/accounts/otp', $field, $this->headers());
     }
     
     /*
@@ -116,7 +142,7 @@ class Ovo
             'device_id' => $this->device_id
         );
         
-        return self::request(self::AGW_API . '/v3/user/accounts/otp/validation', $field, $this->headers());
+        return self::request(self::AGW_API() . '/v3/user/accounts/otp/validation', $field, $this->headers());
     }
     
     /*
@@ -140,7 +166,7 @@ class Ovo
             'channel_code' => 'ovo_ios'
         );
         
-        return self::request(self::AGW_API . '/v3/user/accounts/login', $field, $this->headers());
+        return self::request(self::AGW_API() . '/v3/user/accounts/login', $field, $this->headers());
     }
     
     /*
@@ -149,7 +175,7 @@ class Ovo
     */
     public function getPublicKeys()
     {
-        return self::request(self::AGW_API . '/v3/user/public_keys', false, $this->headers());
+        return self::request(self::AGW_API() . '/v3/user/public_keys', false, $this->headers());
     }
     
     /*
@@ -159,7 +185,7 @@ class Ovo
     */
     public function getLastTransactions($limit = 5)
     {
-        return self::request(self::BASE_API . '/wallet/transaction/last?limit=' . $limit . '&transaction_type=TRANSFER&transaction_type=EXTERNAL%20TRANSFER', false, $this->headers());
+        return self::request(self::BASE_API() . '/wallet/transaction/last?limit=' . $limit . '&transaction_type=TRANSFER&transaction_type=EXTERNAL%20TRANSFER', false, $this->headers());
     }
     
     /*
@@ -169,7 +195,7 @@ class Ovo
     */
     public function getTransactionDetails($merchant_id, $merchant_invoice)
     {
-        return self::request(self::BASE_API . '/wallet/transaction/' . $merchant_id . '/' . $merchant_invoice . '', false, $this->headers());
+        return self::request(self::BASE_API() . '/wallet/transaction/' . $merchant_id . '/' . $merchant_invoice . '', false, $this->headers());
     }
     
     /*
@@ -178,7 +204,7 @@ class Ovo
     */
     public function getFavoriteTransfer()
     {
-        return self::request(self::AWS_API . '/user-profiling/favorite-transfer', false, $this->headers());
+        return self::request(self::AWS_API() . '/user-profiling/favorite-transfer', false, $this->headers());
     }
     
     /*
@@ -208,7 +234,7 @@ class Ovo
     */
     public function getEmail()
     {
-        return self::request(self::AGW_API . '/v3/user/accounts/email', false, $this->headers());
+        return self::request(self::AGW_API() . '/v3/user/accounts/email', false, $this->headers());
     }
     
     /*
@@ -218,7 +244,7 @@ class Ovo
     */
     public function transactionHistory($page = 1, $limit = 10)
     {
-        return self::request(self::AGW_API . "/payment/orders/v1/list?limit=$limit&page=$page", false, $this->headers('Bearer'));
+        return self::request(self::AGW_API() . "/payment/orders/v1/list?limit=$limit&page=$page", false, $this->headers('Bearer'));
     }
     
     /*
@@ -227,7 +253,7 @@ class Ovo
     */
     public function walletInquiry()
     {
-        return self::request(self::BASE_API . '/wallet/inquiry', false, $this->headers());
+        return self::request(self::BASE_API() . '/wallet/inquiry', false, $this->headers());
     }
     
     /*
@@ -276,7 +302,7 @@ class Ovo
         $json                   = json_decode($json);
         $this->hmac_hash        = $json->hmac;
         $this->hmac_hash_random = $json->random;
-        return self::request(self::AGW_API . "/api/v1/get-expired-webview", false, self::commander_headers());
+        return self::request(self::AGW_API() . "/api/v1/get-expired-webview", false, self::commander_headers());
     }
     
     /*
@@ -294,7 +320,7 @@ class Ovo
     */
     public function getBillerList()
     {
-        return self::request(self::AWS_API . "/gpdm/ovo/1/v1/billpay/catalogue/getCategories?categoryID=0&level=1", false, $this->headers());
+        return self::request(self::AWS_API() . "/gpdm/ovo/1/v1/billpay/catalogue/getCategories?categoryID=0&level=1", false, $this->headers());
     }
     
     /*
@@ -304,7 +330,7 @@ class Ovo
     */
     public function getBillerCategory($category_id)
     {
-        return self::request(self::AWS_API . "/gpdm/ovo/ID/v2/billpay/get-billers?categoryID={$category_id}", false, $this->headers());
+        return self::request(self::AWS_API() . "/gpdm/ovo/ID/v2/billpay/get-billers?categoryID={$category_id}", false, $this->headers());
     }
     
     /*
@@ -314,7 +340,7 @@ class Ovo
     */
     public function getDenominations($product_id)
     {
-        return self::request(self::AWS_API . "/gpdm/ovo/ID/v1/billpay/get-denominations/{$product_id}", false, $this->headers());
+        return self::request(self::AWS_API() . "/gpdm/ovo/ID/v1/billpay/get-denominations/{$product_id}", false, $this->headers());
     }
     
     /*
@@ -323,7 +349,7 @@ class Ovo
     */
     public function getBankList()
     {
-        return self::request(self::BASE_API . "/v1.0/reference/master/ref_bank", false, $this->headers());
+        return self::request(self::BASE_API() . "/v1.0/reference/master/ref_bank", false, $this->headers());
     }
     
     /*
@@ -332,7 +358,7 @@ class Ovo
     */
     public function getUnreadNotifications()
     {
-        return self::request(self::BASE_API . "/v1.0/notification/status/count/UNREAD", false, $this->headers());
+        return self::request(self::BASE_API() . "/v1.0/notification/status/count/UNREAD", false, $this->headers());
     }
     
     /*
@@ -341,7 +367,7 @@ class Ovo
     */
     public function getAllNotifications()
     {
-        return self::request(self::BASE_API . "/v1.0/notification/status/all", false, $this->headers());
+        return self::request(self::BASE_API() . "/v1.0/notification/status/all", false, $this->headers());
     }
     
     /*
@@ -375,7 +401,7 @@ class Ovo
             'phone_number' => $customer_id
         );
         
-        return self::request(self::AWS_API . '/gpdm/ovo/ID/v2/billpay/inquiry?isFavorite=false', $field, $this->headers());
+        return self::request(self::AWS_API() . '/gpdm/ovo/ID/v2/billpay/inquiry?isFavorite=false', $field, $this->headers());
     }
     
     /*
@@ -408,7 +434,7 @@ class Ovo
             "phone_number" => $customer_id
         );
         
-        return self::request(self::AWS_API . '/gpdm/ovo/ID/v1/billpay/pay', $field, $this->headers());
+        return self::request(self::AWS_API() . '/gpdm/ovo/ID/v1/billpay/pay', $field, $this->headers());
     }
     
     /*
@@ -423,7 +449,7 @@ class Ovo
             'mobile' => $phone_number
         );
         
-        return self::request(self::BASE_API . '/v1.1/api/auth/customer/isOVO', $field, $this->headers());
+        return self::request(self::BASE_API() . '/v1.1/api/auth/customer/isOVO', $field, $this->headers());
     }
     
     /*
@@ -438,7 +464,7 @@ class Ovo
             'actionMark' => $action_mark
         );
         
-        return self::request(self::BASE_API . '/v1.0/api/auth/customer/genTrxId', $field, $this->headers());
+        return self::request(self::BASE_API() . '/v1.0/api/auth/customer/genTrxId', $field, $this->headers());
     }
     
     /*
@@ -465,11 +491,11 @@ class Ovo
         $field = array(
             'trxId' => $trx_id,
             'securityCode' => $pin,
-			'appVersion' => self::app_version,
+			'appVersion' => self::app_version(),
             'signature' => self::generateSignature($amount, $trx_id)
         );
         
-        return self::request(self::BASE_API . '/v1.0/api/auth/customer/unlockAndValidateTrxId', $field, $this->headers());
+        return self::request(self::BASE_API() . '/v1.0/api/auth/customer/unlockAndValidateTrxId', $field, $this->headers());
     }
     
     /*
@@ -486,7 +512,7 @@ class Ovo
             'message' => $message
         );
         
-        return self::request(self::BASE_API . '/v1.0/api/customers/transfer', $field, $this->headers());
+        return self::request(self::BASE_API() . '/v1.0/api/customers/transfer', $field, $this->headers());
     }
     
     /*
@@ -503,7 +529,7 @@ class Ovo
             'message' => $message
         );
         
-        return self::request(self::BASE_API . '/transfer/inquiry/', $field, $this->headers());
+        return self::request(self::BASE_API() . '/transfer/inquiry/', $field, $this->headers());
     }
     
     /*
@@ -524,7 +550,7 @@ class Ovo
             'transactionId' => $trx_id
         );
         
-        return self::request(self::BASE_API . '/transfer/direct', $field, $this->headers());
+        return self::request(self::BASE_API() . '/transfer/direct', $field, $this->headers());
     }
     
     /*
@@ -548,7 +574,7 @@ class Ovo
             'deviceInfo' => array(
                 'deviceBrand' => 'Apple',
                 'deviceModel' => 'iPhone',
-                'appVersion' => self::app_version,
+                'appVersion' => self::app_version(),
                 'deviceToken' => $this->push_id
             ),
             'paymentDetail' => array(
@@ -562,7 +588,7 @@ class Ovo
             'appsource' => 'OVO-APPS'
         );
         
-        return self::request(self::BASE_API . '/wallet/purchase/qr?qrid=' . urlencode($qrid), $field, $this->headers());
+        return self::request(self::BASE_API() . '/wallet/purchase/qr?qrid=' . urlencode($qrid), $field, $this->headers());
     }
     
     /*
@@ -612,11 +638,11 @@ class Ovo
         $headers = array(
             'accept: application/json, text/plain, */*',
             'app-id: webview-pointexpiry',
-            'client-id: ' . self::client_id,
+            'client-id: ' . self::client_id(),
             'accept-language: id',
             'service: police',
             'origin: https://webview.ovo.id',
-            'user-agent: ' . self::user_agent,
+            'user-agent: ' . self::user_agent(),
             'referer: https://webview.ovo.id/pointexpiry?version=3.43.0'
         );
         
