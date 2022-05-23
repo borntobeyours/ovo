@@ -4,14 +4,14 @@ namespace Borntobeyours\Ovo;
 
 class Ovo
 {
-    const BASE_API = "https://api.ovo.id";
-    const AGW_API = "https://agw.ovo.id";
-    const AWS_API = "https://api.cp1.ovo.id";
+    const BASE_API = config('ovo.BASE_API');
+    const AGW_API = config('ovo.AGW_API');
+    const AWS_API = config('ovo.AWS_API');
     
-    const os = "iOS";
-    const app_version = "3.54.0";
-    const client_id = "ovo_ios";
-    const user_agent = "OVO/21404 CFNetwork/1220.1 Darwin/20.3.0";
+    const os = config('ovo.os');
+    const app_version = config('ovo.app_version');
+    const client_id = config('ovo.client_id');
+    const user_agent = config('ovo.user_agent');
     
     /*
     @ Device ID (UUIDV4)
