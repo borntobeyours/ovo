@@ -17,6 +17,7 @@ You can install the package via composer:
 
 ```bash
 composer require borntobeyours/ovo
+php artisan vendor:publish
 ```
 
 ### Feature
